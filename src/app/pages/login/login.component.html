@@ -1,0 +1,33 @@
+<form [formGroup]="form" class="d-flex flex-column align-items-end justify-content-end" id="login-container">
+  <mat-form-field class="mb-2 mt-4 w-100">
+    <mat-label>Enter your email</mat-label>
+    <input
+      matInput
+      placeholder="user@example.com"
+      formControlName="email"
+      name="email"
+      (blur)="updateErrorMessage()"
+      required
+    />
+    @if (form.controls['email'].invalid) {
+      <mat-error>{{errorMessage()}}</mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field class="mb-2 w-100">
+    <mat-label>Enter your password</mat-label>
+    <input matInput [type]="hide() ? 'password' : 'text'" formControlName="password" name="password" required/>
+    <button
+      mat-icon-button
+      matSuffix
+      (click)="clickEvent($event)"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hide()"
+    >
+    <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+    @if (form.controls['password'].invalid) {
+      <mat-error>Password is required</mat-error>
+    }
+  </mat-form-field>
+  <button mat-flat-button [disabled]="form.invalid" (click)="goToHomePage()">Enter</button>
+</form>
